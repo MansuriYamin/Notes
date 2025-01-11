@@ -3,4 +3,6 @@
     <string name="placeholder_title">Title</string>
     <string name="placeholder_description">Description</string>
     <string name="button_save">Save</string>
+    <string name="content_description_delete_note">Delete note</string>
+    <string name="message_no_notes">Click the add button to add notes</string>
 </resources>

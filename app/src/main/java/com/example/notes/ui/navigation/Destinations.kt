@@ -5,8 +5,8 @@ import kotlinx.serialization.Serializable
 // Destinations for dashboard navgraph
 sealed class DashboardDestinations {
     @Serializable
-    data object HomeScreenDestination : DashboardDestinations()
+    data object HomeDestination : DashboardDestinations()
 
     @Serializable
-    data object AddEditNoteScreenDestination : DashboardDestinations()
+    data class NoteDetailsDestination(val id: Int? = null) : DashboardDestinations()
 }
