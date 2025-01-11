@@ -7,10 +7,13 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.notes.ui.home.HomeScreen
+import com.example.notes.ui.navigation.DashboardDestinations
+import com.example.notes.ui.notes.AddEditNoteScreen
 import com.example.notes.ui.theme.NotesTheme
 
 class MainActivity : ComponentActivity() {
@@ -20,28 +23,27 @@ class MainActivity : ComponentActivity() {
         setContent {
             NotesTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    // Creating navgraph
+                    val navController = rememberNavController()
+
+                    NavHost(
+                        modifier = Modifier.padding(innerPadding),
+                        navController = navController,
+                        startDestination = DashboardDestinations.HomeScreenDestination
+                    ) {
+                        composable<DashboardDestinations.HomeScreenDestination> {
+                            HomeScreen(
+                                onAddClick = {
+                                    navController.navigate(DashboardDestinations.AddEditNoteScreenDestination)
+                                }
+                            )
+                        }
+                        composable<DashboardDestinations.AddEditNoteScreenDestination> {
+                            AddEditNoteScreen()
+                        }
+                    }
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    NotesTheme {
-        Greeting("Android")
     }
 }
