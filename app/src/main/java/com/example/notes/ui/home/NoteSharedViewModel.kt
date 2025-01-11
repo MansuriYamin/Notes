@@ -25,7 +25,8 @@ class NoteSharedViewModel @Inject constructor() : ViewModel() {
 
     private fun addNote(note: Note) {
         _noteListState.update { noteList ->
-            listOf(note.copy(id = noteList.size)) + noteList // Add note on top by assigning id
+            val updatedNoteList = noteList.mapIndexed { index, it -> it.copy(id = index + 1) }
+            listOf(note.copy(id = 0)) + updatedNoteList // Add note on top by assigning id
         }
     }
 
